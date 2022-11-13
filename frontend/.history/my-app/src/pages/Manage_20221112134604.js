@@ -1,0 +1,25 @@
+import React, { useEffect } from "react";
+import SidebarMenu from "../layout/homePage/SidebarMenu";
+import styled from "styled-components";
+import ListPosts from "../layout/manage/ListPosts";
+import { useNavigate } from "react-router-dom";
+
+const Manage = () => {
+    const user = JSON.parse(localStorage.getItem("userLogin"));
+    const roleID = user.roleId
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (roleID === 3) {
+            navigate("/")
+        }
+    }, [])
+    return (
+        <div className="flex">
+            {/* <SidebarMenu props={user}></SidebarMenu> */}
+            <ListPosts></ListPosts>
+        </div>
+    );
+};
+
+export default Manage;
