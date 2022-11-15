@@ -1,0 +1,28 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+.hidden-input {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0 1rem;
+  font-size: 20px;
+  transition: all 0.25s linear;
+}
+.selected {
+  background-color: red;
+  padding: 2px 7px;
+}
+.previous {
+}
