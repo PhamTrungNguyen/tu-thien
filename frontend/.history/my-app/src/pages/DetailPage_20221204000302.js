@@ -9,7 +9,6 @@ import TextArea from "../components/input/TextArea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 const TableStyles = styled.div`
   overflow-x: auto;
   background-color: white;
@@ -345,50 +344,6 @@ const DetailPage = () => {
     }
     setTimeout(() => (window.location.href = window.location.href), 1000);
   };
-  const handleDeletePost = () => {
-    Swal.fire({
-      title: "Bạn có chắc chắn không?",
-      text: "Bạn sẽ không thể hoàn tác tài nguyên nếu xóa !!!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Đồng ý",
-      cancelButtonText: "Hủy",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        // if (accountID === accountIDNow || accountNow.roleId === 3) {
-        // const check = await handleDeleteAccountByID(`http://localhost:8080/api/post/DeletePostById?idPost=${idPost}`)
-        // console.log("🚀 ~ file: ItemPost.js ~ line 52 ~ handleDeletePost ~ check", check)
-        const check = true;
-        if (check.status === 200) {
-          Swal.fire("Xóa thành công!", "Bình luận đã được xóa.", "success").then(
-            function () {
-              window.location.reload();
-            }
-          );
-        } else {
-          Swal.fire("Xóa thất bại!", "Bình luận chưa được xóa.", "warning").then(
-            function () {
-              window.location.reload();
-            }
-          );
-        }
-        // }
-        // else {
-        //     toast.error("Không được phép xóa bài viết của người khác", {
-        //         pauseOnHover: false,
-        //         delay: 0,
-        //         autoClose: 1300,
-        //     });
-        //     setTimeout(
-        //         () => (window.location.reload()),
-        //         1000
-        //     );
-        // }
-      }
-    });
-  };
   return (
     <div className="flex">
       <main className="">
@@ -513,11 +468,8 @@ const DetailPage = () => {
                         : userComment[index]?.username
                         } :`}</h3>
                       <span className="inline">{item?.text}</span>
-                      <div
-                        className="inline absolute right-0 hover:text-red-500"
-                        onClick={handleDeletePost}
-                      >
-                        <i class="fa-solid fa-xmark "></i>
+                      <div className="inline absolute right-0 text-red">
+                        <i class="fa-solid fa-xmark text-red"></i>
                       </div>
                     </div>
                   ))}

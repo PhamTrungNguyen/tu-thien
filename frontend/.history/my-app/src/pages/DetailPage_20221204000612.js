@@ -348,7 +348,7 @@ const DetailPage = () => {
   const handleDeletePost = () => {
     Swal.fire({
       title: "Bạn có chắc chắn không?",
-      text: "Bạn sẽ không thể hoàn tác tài nguyên nếu xóa !!!",
+      text: "Bạn sẽ không thể hoàn tác tài nguyên nếu xóa!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -509,8 +509,8 @@ const DetailPage = () => {
                   comment.map((item, index) => (
                     <div className="text-[13px] relative mb-[5px]" key={index}>
                       <h3 className="font-semibold inline">{`${userComment[index]?.displayName
-                        ? userComment[index]?.displayName
-                        : userComment[index]?.username
+                          ? userComment[index]?.displayName
+                          : userComment[index]?.username
                         } :`}</h3>
                       <span className="inline">{item?.text}</span>
                       <div

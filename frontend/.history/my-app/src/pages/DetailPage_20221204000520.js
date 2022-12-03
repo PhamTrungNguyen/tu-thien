@@ -347,14 +347,14 @@ const DetailPage = () => {
   };
   const handleDeletePost = () => {
     Swal.fire({
-      title: "Bạn có chắc chắn không?",
-      text: "Bạn sẽ không thể hoàn tác tài nguyên nếu xóa !!!",
-      icon: "warning",
+      title: 'Bạn có chắc chắn không?',
+      text: "Bạn sẽ không thể hoàn tác tài nguyên nếu xóa!",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Đồng ý",
-      cancelButtonText: "Hủy",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy'
     }).then(async (result) => {
       if (result.isConfirmed) {
         // if (accountID === accountIDNow || accountNow.roleId === 3) {
@@ -362,17 +362,24 @@ const DetailPage = () => {
         // console.log("🚀 ~ file: ItemPost.js ~ line 52 ~ handleDeletePost ~ check", check)
         const check = true;
         if (check.status === 200) {
-          Swal.fire("Xóa thành công!", "Bình luận đã được xóa.", "success").then(
-            function () {
-              window.location.reload();
-            }
-          );
-        } else {
-          Swal.fire("Xóa thất bại!", "Bình luận chưa được xóa.", "warning").then(
-            function () {
-              window.location.reload();
-            }
-          );
+          Swal.fire(
+            'Xóa thành công!',
+            'Bài viết đã được xóa.',
+            'success'
+          ).then(function () {
+
+            window.location.reload()
+          })
+        }
+        else {
+          Swal.fire(
+            'Xóa thất bại!',
+            'Bài viết chưa được xóa.',
+            'warning'
+          ).then(function () {
+
+            window.location.reload()
+          })
         }
         // }
         // else {
@@ -387,8 +394,8 @@ const DetailPage = () => {
         //     );
         // }
       }
-    });
-  };
+    })
+  }
   return (
     <div className="flex">
       <main className="">
@@ -513,10 +520,7 @@ const DetailPage = () => {
                         : userComment[index]?.username
                         } :`}</h3>
                       <span className="inline">{item?.text}</span>
-                      <div
-                        className="inline absolute right-0 hover:text-red-500"
-                        onClick={handleDeletePost}
-                      >
+                      <div className="inline absolute right-0 hover:text-red-500">
                         <i class="fa-solid fa-xmark "></i>
                       </div>
                     </div>

@@ -87,7 +87,7 @@ const ItemPost = ({ props, index }) => {
                         autoClose: 1300,
                     });
                     setTimeout(
-                        () => (window.location.reload()),
+                        () => (window.location.href = window.location.href),
                         1000
                     );
                 }

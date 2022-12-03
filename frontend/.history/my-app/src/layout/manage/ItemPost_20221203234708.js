@@ -5,7 +5,6 @@ import ActionView from '../../components/actions/ActionView';
 import LabelStatus from '../../components/label/LabelStatus';
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 const ItemPost = ({ props, index }) => {
     const [account, setAccount] = useState()
@@ -16,7 +15,6 @@ const ItemPost = ({ props, index }) => {
     const formatDate = new Date(date).toLocaleDateString("vi");
     const accountID = props.accountId
     const accountNow = JSON.parse(localStorage.getItem("userLogin"))
-    // console.log("🚀 ~ file: ItemPost.js:19 ~ ItemPost ~ accountNow", accountNow.roleId)
     const accountIDNow = accountNow?.id
     console.log("🚀 ~ file: ItemPost.js:19 ~ ItemPost ~ accountIDNow", accountIDNow)
     const reloadUsingLocationHash = () => {
@@ -56,7 +54,9 @@ const ItemPost = ({ props, index }) => {
             cancelButtonText: 'Hủy'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                if (accountID === accountIDNow || accountNow.roleId === 3) {
+                if (accountID === accountIDNow) {
+
+
                     const check = await handleDeleteAccountByID(`http://localhost:8080/api/post/DeletePostById?idPost=${idPost}`)
                     console.log("🚀 ~ file: ItemPost.js ~ line 52 ~ handleDeletePost ~ check", check)
                     if (check.status === 200) {
@@ -81,15 +81,7 @@ const ItemPost = ({ props, index }) => {
                     }
                 }
                 else {
-                    toast.error("Không được phép xóa bài viết của người khác", {
-                        pauseOnHover: false,
-                        delay: 0,
-                        autoClose: 1300,
-                    });
-                    setTimeout(
-                        () => (window.location.reload()),
-                        1000
-                    );
+
                 }
             }
         })

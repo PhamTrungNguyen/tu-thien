@@ -9,7 +9,6 @@ import TextArea from "../components/input/TextArea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 const TableStyles = styled.div`
   overflow-x: auto;
   background-color: white;
@@ -48,21 +47,22 @@ const DetailPage = () => {
   const [totalMoney, setTotalMoney] = useState("");
   // console.log("🚀 ~ file: DetailPage.js:48 ~ DetailPage ~ totalMoney", totalMoney)
   const [donate, setDonate] = useState({});
-  console.log("🚀 ~ file: DetailPage.js:50 ~ DetailPage ~ donate", donate);
+  console.log("🚀 ~ file: DetailPage.js:50 ~ DetailPage ~ donate", donate)
   const [comment, setComment] = useState({});
   // console.log("🚀 ~ file: DetailPage.js:50 ~ DetailPage ~ comment", comment)
   const [user, setUser] = useState({});
   const [userComment, setUserComment] = useState({});
   const [userParticipant, setUserParticipant] = useState({});
-  const userLocal = JSON.parse(localStorage.getItem("userLogin"));
+  const userLocal = JSON.parse(localStorage.getItem('userLogin'))
   // console.log("🚀 ~ file: DetailPage.js:57 ~ DetailPage ~ userLocal", userLocal === "")
-  const userId = userLocal?.id;
+  const userId = userLocal?.id
   // const nameUser = userLocal?.displayName
   //   ? userLocal?.displayName
   //   : userLocal?.username
   const schema = yup
     .object({
       text: yup.string().required("Vui lòng nhập vào nội dung"),
+
     })
     .required();
   const {
@@ -190,11 +190,11 @@ const DetailPage = () => {
   const handleAddComment = async (url, data) => {
     try {
       const response = await fetch(url, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
       const result = await response.json();
       toast.success(`${result.message}`, {
@@ -209,7 +209,7 @@ const DetailPage = () => {
         autoClose: 1300,
       });
     }
-  };
+  }
   useEffect(() => {
     handleGetAllPostRelate(
       `http://localhost:8080/api/post/getAllPostRelate?hot=${hot}`
@@ -227,9 +227,7 @@ const DetailPage = () => {
     handleGetDonateIDByPostID(
       `http://localhost:8080/api/donate/getDonateIDByPostID?postId=${post?.id}`
     );
-    handleGetCommentIDByPostID(
-      `http://localhost:8080/api/comment/getCommentIDByPostID?postId=${post?.id}`
-    );
+    handleGetCommentIDByPostID(`http://localhost:8080/api/comment/getCommentIDByPostID?postId=${post?.id}`)
   }, [post?.id]);
   /* ---------------------------------------------------- */
   useEffect(() => {
@@ -270,7 +268,7 @@ const DetailPage = () => {
             );
           })
         );
-        setComment(kq);
+        setComment(kq)
       }
     };
     getDonate();
@@ -281,6 +279,7 @@ const DetailPage = () => {
       if (participant?.length > 0) {
         const kq = await Promise.all(
           participant.map((item) => {
+
             return handleGetUserParticipantByUserID(
               `http://localhost:8080/api/auth/getAccountByID?accountId=${item.userID}`
             );
@@ -322,73 +321,30 @@ const DetailPage = () => {
       }
     };
     getUserByDonate();
-    getUserByComment();
+    getUserByComment()
   }, [comment, donate]);
   const submitForm = (values) => {
-    setValue("userId", userId);
-    setValue("postId", idPost);
-    const newValue = { ...values };
-    newValue.userId = getValues("userId");
-    newValue.postId = getValues("postId");
+    setValue("userId", userId)
+    setValue("postId", idPost)
+    const newValue = { ...values }
+    newValue.userId = getValues("userId")
+    newValue.postId = getValues("postId")
     console.log(newValue);
     if (userLocal !== "") {
-      handleAddComment(
-        "http://localhost:8080/api/comment/addComment",
-        newValue
-      );
-    } else {
+      handleAddComment("http://localhost:8080/api/comment/addComment", newValue)
+    }
+    else {
       toast.error("Vui lòng đăng nhập để bình luận", {
         pauseOnHover: false,
         delay: 0,
         autoClose: 1300,
       });
     }
-    setTimeout(() => (window.location.href = window.location.href), 1000);
-  };
-  const handleDeletePost = () => {
-    Swal.fire({
-      title: "Bạn có chắc chắn không?",
-      text: "Bạn sẽ không thể hoàn tác tài nguyên nếu xóa !!!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Đồng ý",
-      cancelButtonText: "Hủy",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        // if (accountID === accountIDNow || accountNow.roleId === 3) {
-        // const check = await handleDeleteAccountByID(`http://localhost:8080/api/post/DeletePostById?idPost=${idPost}`)
-        // console.log("🚀 ~ file: ItemPost.js ~ line 52 ~ handleDeletePost ~ check", check)
-        const check = true;
-        if (check.status === 200) {
-          Swal.fire("Xóa thành công!", "Bình luận đã được xóa.", "success").then(
-            function () {
-              window.location.reload();
-            }
-          );
-        } else {
-          Swal.fire("Xóa thất bại!", "Bình luận chưa được xóa.", "warning").then(
-            function () {
-              window.location.reload();
-            }
-          );
-        }
-        // }
-        // else {
-        //     toast.error("Không được phép xóa bài viết của người khác", {
-        //         pauseOnHover: false,
-        //         delay: 0,
-        //         autoClose: 1300,
-        //     });
-        //     setTimeout(
-        //         () => (window.location.reload()),
-        //         1000
-        //     );
-        // }
-      }
-    });
-  };
+    setTimeout(
+      () => (window.location.href = window.location.href),
+      1000
+    );
+  }
   return (
     <div className="flex">
       <main className="">
@@ -505,35 +461,19 @@ const DetailPage = () => {
                 Bình luận bài viết
               </h3>
               <div className="border-[1px] p-[10px] mb-[20px] h-[100px] overflow-auto">
-                {comment?.length > 0 &&
-                  comment.map((item, index) => (
-                    <div className="text-[13px] relative mb-[5px]" key={index}>
-                      <h3 className="font-semibold inline">{`${userComment[index]?.displayName
-                        ? userComment[index]?.displayName
-                        : userComment[index]?.username
-                        } :`}</h3>
-                      <span className="inline">{item?.text}</span>
-                      <div
-                        className="inline absolute right-0 hover:text-red-500"
-                        onClick={handleDeletePost}
-                      >
-                        <i class="fa-solid fa-xmark "></i>
-                      </div>
-                    </div>
-                  ))}
+                {comment?.length > 0 && comment.map((item, index) => (
+                  <div className="text-[13px] relative" key={index}>
+                    <h3 className="font-semibold inline">{`${userComment[index]?.displayName
+                      ? userComment[index]?.displayName
+                      : userComment[index]?.username} :`}</h3>
+                    <span className="inline">{item?.text}</span>
+                    <div className="inline absolute"><i class="fa-solid fa-xmark"></i></div>
+                  </div>
+                ))}
               </div>
               <form onSubmit={handleSubmit(submitForm)} className="text-center">
-                <TextArea
-                  placeholder="Nhập bình luận tại đây."
-                  height="70px"
-                  padding="10px"
-                  name="text"
-                  control={control}
-                ></TextArea>
-                <button
-                  className={`px-[10px] mt-[20px] py-[5px] bg-[#e22d28] text-center rounded-[5px] text-white font-medium ${!isValid ? "opacity-50" : ""
-                    }`}
-                >
+                <TextArea placeholder="Nhập bình luận tại đây." height="70px" padding="10px" name="text" control={control}></TextArea>
+                <button className={`px-[10px] mt-[20px] py-[5px] bg-[#e22d28] text-center rounded-[5px] text-white font-medium ${!isValid ? "opacity-50" : ""}`}>
                   Đăng bình luận
                 </button>
               </form>
