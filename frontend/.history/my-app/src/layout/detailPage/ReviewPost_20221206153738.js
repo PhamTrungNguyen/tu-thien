@@ -1,0 +1,98 @@
+import React, { useEffect, useState } from "react";
+import ItemRelate from "../layout/detailPage/ItemRelate";
+import TitleDetailPage from "../layout/detailPage/TitleDetailPage";
+import * as yup from "yup";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import LoadMore from "../layout/homePage/LoadMore";
+import TextArea from "../components/input/TextArea";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+
+const submitReviewForm = (userId, idPost) => {
+    const userLocal = JSON.parse(localStorage.getItem("userLogin"));
+    const schema = yup
+        .object({
+            text: yup.string().required("Vui lòng nhập vào nội dung"),
+            review: yup.string().required("Vui lòng nhập vào nội dung"),
+        })
+        .required();
+    const { } = useForm()
+    const handleAddComment = async (url, data) => {
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            const result = await response.json();
+            toast.success(`${result.message}`, {
+                pauseOnHover: false,
+                delay: 0,
+                autoClose: 1300,
+            });
+        } catch (error) {
+            toast.error("Bình luận thất bại", {
+                pauseOnHover: false,
+                delay: 0,
+                autoClose: 1300,
+            });
+        }
+    };
+    const submitReviewForm = (values) => {
+        setValue("userId", userId);
+        setValue("postId", idPost);
+        const newValue = { ...values };
+        newValue.userId = getValues("userId");
+        newValue.postId = getValues("postId");
+        newValue.hot = true;
+        console.log(newValue);
+        if (userLocal !== "") {
+            handleAddComment(
+                "http://localhost:8080/api/comment/addComment",
+                newValue
+            );
+        } else {
+            toast.error("Vui lòng đăng nhập để đánh giá", {
+                pauseOnHover: false,
+                delay: 0,
+                autoClose: 1300,
+            });
+        }
+        setTimeout(() => (window.location.href = window.location.href), 1000);
+    };
+
+};
+const ReviewPost = () => {
+    return (
+        <div>
+            <div className="reviews py-[40px]">
+                <h3 className="text-[20px] font-semibold ">
+                    Kết quả đánh giá thiện nguyện
+                </h3>
+                <div className="border-[1px] p-[10px] mb-[20px] h-[100px] overflow-auto">
+
+                </div>
+                <form onSubmit={handleSubmit(submitReviewForm)} action="">
+                    <TextArea
+                        placeholder="Nhập đánh giá tại đây."
+                        height="70px"
+                        padding="10px"
+                        name="review"
+                        control={control}
+                    ></TextArea>
+                    <button className="px-[10px] py-[5px] bg-[#e22d28] text-center rounded-[5px] text-white font-medium">
+                        Viết đánh giá
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default ReviewPost;
