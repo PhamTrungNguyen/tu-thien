@@ -44,7 +44,14 @@ const DeleteCommentByIdService = async (query) => {
     }
     return { status: 400, message: "no" }
 };
+/* ---------- Xóa  bài viết by id ----------  */
+const DeletePostByIdService = async (query) => {
+    const { idPost } = query;
+    console.log("🚀 ~ file: postService.js ~ line 35 ~ getPostByIdService ~ idPost", idPost)
 
+    const post = await Post.destroy({ where: { id: +idPost } })
+
+};
 module.exports = {
     addCommentService,
     getCommentIDByPostIDService,

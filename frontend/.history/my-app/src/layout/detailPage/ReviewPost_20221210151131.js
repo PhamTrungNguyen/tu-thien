@@ -218,14 +218,16 @@ const ReviewPost = (idPost) => {
                 </h3>
                 <div className="border-[1px] p-[10px] mb-[20px] h-[100px] overflow-auto pointer-events-none">
                     {comment?.length > 0 && (
-                        <div className="flex items-center justify-center gap-x-[10px]" >
+                        <div className="flex items-center justify-center gap-x-[10px]" onClick={() => handleDeleteComment(comment[0].userID, comment[0])}>
                             <span>{comment[0]?.text}</span>
                         </div>
                     )}
                 </div>
                 {comment?.length > 0 && (
                     <div
-                        onClick={() => handleDeleteComment(comment[0].userID, comment[0].id)}
+                        onClick={() => {
+                            "123";
+                        }}
                         className="mb-[20px]"
                     >
                         <button className="px-[10px] py-[5px] bg-[#e22d28] text-center rounded-[5px] text-white font-medium">

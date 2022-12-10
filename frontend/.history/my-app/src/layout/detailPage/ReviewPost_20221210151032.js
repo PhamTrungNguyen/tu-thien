@@ -1,37 +1,35 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import Swal from "sweetalert2";
+import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 import * as yup from "yup";
-import TextArea from "../../components/input/TextArea";
+import TextArea from '../../components/input/TextArea';
 
 const ReviewPost = (idPost) => {
     const userLocal = JSON.parse(localStorage.getItem("userLogin"));
     const userId = userLocal?.id;
     const [postComment, setPostComment] = useState("");
     const [comment, setComment] = useState("");
-    console.log("🚀 ~ file: ReviewPost.js:14 ~ ReviewPost ~ comment", comment);
+    console.log("🚀 ~ file: ReviewPost.js:14 ~ ReviewPost ~ comment", comment)
     const [participant, setParticipant] = useState("");
-    const userIDParticipant = participant[0]?.userID;
+    const userIDParticipant = participant[0]?.userID
     const schema = yup
         .object({
             review: yup.string().required("Vui lòng nhập vào nội dung"),
         })
         .required();
-    const {
-        control,
+    const { control,
         handleSubmit,
         setValue,
         getValues,
         watch,
         reset,
-        formState: { errors, isValid, isSubmitting },
-    } = useForm({
-        mode: "onChange",
-        resolver: yupResolver(schema),
-    });
+        formState: { errors, isValid, isSubmitting }, } = useForm({
+            mode: "onChange",
+            resolver: yupResolver(schema)
+        })
     /* --------------- */
     async function handleGetCommentIDByPostID(url) {
         const response = await fetch(url, {
@@ -101,20 +99,24 @@ const ReviewPost = (idPost) => {
                     "http://localhost:8080/api/comment/addComment",
                     newValue
                 );
-            } else {
+            }
+            else {
                 if (comment.length > 0) {
                     toast.error("Bài viết đã tồn tại đánh giá !!!", {
                         pauseOnHover: false,
                         delay: 0,
                         autoClose: 1400,
                     });
-                } else if (userIDParticipant !== userId) {
+                }
+                else if (userIDParticipant !== userId) {
                     toast.error("Chỉ đội trưởng của bài viết mới được đánh giá", {
                         pauseOnHover: false,
                         delay: 0,
                         autoClose: 1300,
                     });
+
                 }
+
             }
         } else {
             toast.error("Vui lòng đăng nhập để đánh giá", {
@@ -148,37 +150,32 @@ const ReviewPost = (idPost) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 if (idUserComment === userId || userLocal.roleId === 3) {
-                    const check = await handleDeleteCommentByID(
-                        `http://localhost:8080/api/comment/DeleteCommentById?id=${idComment}`
-                    );
-                    console.log(
-                        "🚀 ~ file: ItemPost.js ~ line 52 ~ handleDeletePost ~ check",
-                        check
-                    );
+                    const check = await handleDeleteCommentByID(`http://localhost:8080/api/comment/DeleteCommentById?id=${idComment}`)
+                    console.log("🚀 ~ file: ItemPost.js ~ line 52 ~ handleDeletePost ~ check", check)
                     if (check.status === 200) {
-                        Swal.fire(
-                            "Xóa thành công!",
-                            "Đánh giá đã được xóa.",
-                            "success"
-                        ).then(function () {
-                            window.location.reload();
-                        });
+                        Swal.fire("Xóa thành công!", "Đánh giá đã được xóa.", "success").then(
+                            function () {
+                                window.location.reload();
+                            }
+                        );
                     } else {
-                        Swal.fire(
-                            "Xóa thất bại!",
-                            "Đánh giá chưa được xóa.",
-                            "warning"
-                        ).then(function () {
-                            window.location.reload();
-                        });
+                        Swal.fire("Xóa thất bại!", "Đánh giá chưa được xóa.", "warning").then(
+                            function () {
+                                window.location.reload();
+                            }
+                        );
                     }
-                } else {
-                    toast.error("Bạn không có quyền xóa đánh giá này!!!", {
+                }
+                else {
+                    toast.error("Bạn không có quyền xóa đánh giá này", {
                         pauseOnHover: false,
                         delay: 0,
                         autoClose: 1300,
                     });
-                    setTimeout(() => window.location.reload(), 1200);
+                    setTimeout(
+                        () => (window.location.reload()),
+                        1200
+                    );
                 }
             }
         });
@@ -193,7 +190,7 @@ const ReviewPost = (idPost) => {
     }, [idPost.idPost]);
     useEffect(() => {
         const getDonate = async () => {
-            let data = [];
+            let data = []
             if (postComment?.length > 0) {
                 const kq = await Promise.all(
                     postComment.map(async (item) => {
@@ -217,22 +214,20 @@ const ReviewPost = (idPost) => {
                     Kết quả đánh giá thiện nguyện
                 </h3>
                 <div className="border-[1px] p-[10px] mb-[20px] h-[100px] overflow-auto pointer-events-none">
-                    {comment?.length > 0 && (
-                        <div className="flex items-center justify-center gap-x-[10px]" >
-                            <span>{comment[0]?.text}</span>
-                        </div>
-                    )}
+                    {comment?.length > 0 && <div className="flex items-center justify-center gap-x-[10px]">
+                        <span>
+                            {comment[0]?.text}
+
+                        </span>
+                    </div>}
                 </div>
-                {comment?.length > 0 && (
-                    <div
-                        onClick={() => handleDeleteComment(comment[0].userID, comment[0].id)}
-                        className="mb-[20px]"
-                    >
+                {comment?.length > 0 &&
+                    <div onClick={() => { "123" }} className="mb-[20px]">
                         <button className="px-[10px] py-[5px] bg-[#e22d28] text-center rounded-[5px] text-white font-medium">
                             Xóa đánh giá
                         </button>
                     </div>
-                )}
+                }
                 <form onSubmit={handleSubmit(submitReviewForm)} action="">
                     <TextArea
                         placeholder="Nhập đánh giá tại đây."
@@ -244,7 +239,9 @@ const ReviewPost = (idPost) => {
                     <button className="px-[10px] py-[5px] bg-[#e22d28] text-center rounded-[5px] text-white font-medium">
                         Viết đánh giá
                     </button>
+
                 </form>
+
             </div>
         </div>
     );

@@ -44,7 +44,6 @@ const DeleteCommentByIdService = async (query) => {
     }
     return { status: 400, message: "no" }
 };
-
 module.exports = {
     addCommentService,
     getCommentIDByPostIDService,
