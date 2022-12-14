@@ -1,6 +1,6 @@
 - tạo dự án nodejs : npm init
-- chạy server : npm start
 - framewordk express : npm install express
+- chạy server : npm start
 - thư viện nodemon : npm i nodemon-> lắng nghe sự thay đổi của các code trong file
 - thư viện cors : npm install cors -> cho phép chia sẽ tài nguyên
 
