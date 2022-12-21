@@ -355,12 +355,18 @@ const DetailPage = () => {
         autoClose: 1300,
       });
     }
+    setTimeout(() => {
+      navigate(`/${idPost}`);
+      const reloadUsingLocationHash = () => {
+        window.location.hash = "reload";
+      }
+      window.onload = reloadUsingLocationHash();
+    }, 1000);
 
-    setTimeout(
-      () => (window.location.reload()),
-      1200
-    );
-
+    const reloadUsingLocationHash = () => {
+      window.location.hash = "reload";
+    }
+    window.onload = reloadUsingLocationHash();
   };
 
   async function handleDeleteCommentByID(url) {
