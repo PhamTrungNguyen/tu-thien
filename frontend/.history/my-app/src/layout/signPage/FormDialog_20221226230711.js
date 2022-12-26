@@ -36,7 +36,7 @@ export default function FormDialog({ open, getRadio }) {
     return (
         <div>
             <Dialog open={check}>
-                <DialogTitle>Xác thực đăng kí tài khoản quản lý </DialogTitle>
+                <DialogTitle>Xác thực đăng khí tài khoản quản lý </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         <div>

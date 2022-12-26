@@ -320,7 +320,8 @@ const ItemSupport = ({ item, ...props }) => {
                         {item.title}
                     </a>
                 </h3>
-                <a href={item.id}>
+                <a href="">
+
                     <p className="itemSupport-desc">{item.desc}</p>
                 </a>
             </div>
