@@ -5,20 +5,42 @@ import ActionView from '../../components/actions/ActionView';
 import LabelStatus from '../../components/label/LabelStatus';
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const ItemPost = ({ props, index }) => {
     const [account, setAccount] = useState()
+    const [post, setPost] = useState()
     const idPost = props.id;
     const navigate = useNavigate();
-    const date = props?.createAt?.seconds
-        ? new Date(props?.createAt?.seconds * 1000)
-        : new Date();
+    const date = props?.createdAt
+
     const formatDate = new Date(date).toLocaleDateString("vi");
     const accountID = props.accountId
+    const accountNow = JSON.parse(localStorage.getItem("userLogin"))
+    // console.log("🚀 ~ file: ItemPost.js:19 ~ ItemPost ~ accountNow", accountNow.roleId)
+    const accountIDNow = accountNow?.id
     const reloadUsingLocationHash = () => {
         window.location.hash = "reload";
     }
-
+    async function handleGet(url) {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const result = await response.json();
+        return result;
+    }
+    useEffect(() => {
+        const getPostById = async () => {
+            let kq = await handleGet(
+                `http://localhost:8080/api/post/getPostById?idPost=${idPost}`
+            );
+            setPost(kq)
+        }
+        getPostById()
+    }, [idPost])
     async function handleGetAccountByID(url) {
         const response = await fetch(url, {
             method: "GET",
@@ -52,30 +74,72 @@ const ItemPost = ({ props, index }) => {
             cancelButtonText: 'Hủy'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const check = await handleDeleteAccountByID(`http://localhost:8080/api/post/DeletePostById?idPost=${idPost}`)
-                console.log("🚀 ~ file: ItemPost.js ~ line 52 ~ handleDeletePost ~ check", check)
-                if (check.status === 200) {
-                    Swal.fire(
-                        'Xóa thành công!',
-                        'Bài viết đã được xóa.',
-                        'success'
-                    ).then(function () {
+                if (accountID === accountIDNow || accountNow.roleId === 3) {
+                    if (post?.status === 1) {
+                        const check = await handleDeleteAccountByID(`http://localhost:8080/api/post/DeletePostById?idPost=${idPost}`)
+                        console.log("🚀 ~ file: ItemPost.js ~ line 52 ~ handleDeletePost ~ check", check)
+                        if (check.status === 200) {
+                            Swal.fire(
+                                'Xóa thành công!',
+                                'Bài viết đã được xóa.',
+                                'success'
+                            ).then(function () {
 
-                        window.location.reload()
-                    })
+                                window.location.reload()
+                            })
+                        }
+                        else {
+                            Swal.fire(
+                                'Xóa thất bại!',
+                                'Bài viết chưa được xóa.',
+                                'warning'
+                            ).then(function () {
+
+                                window.location.reload()
+                            })
+                        }
+                    }
+                    else {
+                        toast.error("Chỉ được xóa bài viết cần hỗ trợ", {
+                            pauseOnHover: false,
+                            delay: 0,
+                            autoClose: 1300,
+                        });
+                        setTimeout(
+                            () => (window.location.reload()),
+                            1500
+                        );
+                    }
                 }
                 else {
-                    Swal.fire(
-                        'Xóa thất bại!',
-                        'Bài viết chưa được xóa.',
-                        'warning'
-                    ).then(function () {
-
-                        window.location.reload()
-                    })
+                    toast.error("Không được phép xóa bài viết của người khác", {
+                        pauseOnHover: false,
+                        delay: 0,
+                        autoClose: 1300,
+                    });
+                    setTimeout(
+                        () => (window.location.reload()),
+                        1500
+                    );
                 }
             }
         })
+    }
+    const handleUpdate = () => {
+        if (accountID === accountIDNow || accountNow.roleId === 3) {
+            navigate(`/quan-ly/sua?id=${idPost}`)
+        }
+        else {
+            toast.error("Không được phép chỉnh sửa bài viết của người khác", {
+                pauseOnHover: false,
+                delay: 0,
+                autoClose: 1300,
+            });
+            setTimeout(
+                () => (window.location.reload()),
+                1500
+            );
+        }
     }
     useEffect(() => {
         handleGetAccountByID(`http://localhost:8080/api/auth/getAccountByID?accountId=${accountID}`);
@@ -83,20 +147,25 @@ const ItemPost = ({ props, index }) => {
     return (
 
         <tr>
-            <td>{index}</td>
+
             <td>
                 <div className="flex items-center gap-x-3">
                     <img
                         src={props.image}
                         alt=""
                         className="w-[66px] h-[55px] rounded object-cover"
+
                     />
+
                     <div className="flex-1">
                         <h3
                             className="title-post text-[12px] font-semibold max-w-[300px] whitespace-normal cursor-pointer"
                             title={props.title}
                         >
-                            {props.title}
+                            <a href={`/${idPost}`}>
+
+                                {props.title}
+                            </a>
                         </h3>
                         <time className="text-sm text-gray-500">
                             {formatDate}
@@ -138,7 +207,7 @@ const ItemPost = ({ props, index }) => {
                 <div className="flex items-center gap-x-3 text-gray-500">
                     <ActionView onClick={() => navigate(`/${idPost}`)}></ActionView>
                     <ActionEdit
-                        onClick={() => navigate(`/${idPost}`)}
+                        onClick={() => handleUpdate()}
                     ></ActionEdit>
                     <ActionDelete
                         onClick={() => { handleDeletePost() }}

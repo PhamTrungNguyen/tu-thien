@@ -147,7 +147,7 @@ const ItemPost = ({ props, index }) => {
     return (
 
         <tr>
-            <td>{index}</td>
+
             <td>
                 <div className="flex items-center gap-x-3">
                     <img

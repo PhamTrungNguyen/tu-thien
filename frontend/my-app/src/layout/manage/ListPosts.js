@@ -111,7 +111,7 @@ const ListPosts = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>STT</th>
+
                             <th>Bài viết</th>
                             <th>Tác giả</th>
                             <th>Trạng thái</th>

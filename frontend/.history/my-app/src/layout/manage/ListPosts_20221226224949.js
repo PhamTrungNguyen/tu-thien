@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import ReactPaginate from 'react-paginate';
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import ItemPost from "./ItemPost";
+import styled from "styled-components";
 const TableStyles = styled.div`
   overflow-x: auto;
   background-color: white;
@@ -111,7 +111,7 @@ const ListPosts = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>STT</th>
+
                             <th>Bài viết</th>
                             <th>Tác giả</th>
                             <th>Trạng thái</th>

@@ -23,7 +23,7 @@ const SidebarMenu = ({ styled, props }) => {
                     <i className="bx bx-chevron-left" />
                 </span>
                 <h3 className="hide hide_title text-center">
-                    <a href="/">
+                    <a href="">
 
                         Quỹ từ thiện Tình Thương{" "}
                     </a>
