@@ -82,7 +82,7 @@ export default function ChangePassword({ open }) {
             }
         }
         else {
-            toast.error(`Vui lòng nhập đúng thông tin`, {
+            toast.error(`123`, {
                 pauseOnHover: false,
                 delay: 0,
                 autoClose: 1300,
@@ -120,7 +120,7 @@ export default function ChangePassword({ open }) {
             >
                 Đổi mật khẩu
             </h3>
-            <Dialog open={check} onClose={handleClose}>
+            <Dialog open={true} onClose={handleClose}>
                 <DialogTitle>Thay đổi mật khẩu</DialogTitle>
                 <DialogContent>
                     <DialogContentText>Vui lòng điền đầy đủ thông tin</DialogContentText>

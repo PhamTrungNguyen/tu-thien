@@ -120,7 +120,7 @@ export default function ChangePassword({ open }) {
             >
                 Đổi mật khẩu
             </h3>
-            <Dialog open={check} onClose={handleClose}>
+            <Dialog open={true} onClose={handleClose}>
                 <DialogTitle>Thay đổi mật khẩu</DialogTitle>
                 <DialogContent>
                     <DialogContentText>Vui lòng điền đầy đủ thông tin</DialogContentText>

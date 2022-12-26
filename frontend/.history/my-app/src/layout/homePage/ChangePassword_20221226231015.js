@@ -63,30 +63,21 @@ export default function ChangePassword({ open }) {
     const handleSubmit = async () => {
         const kq = await handleCallAPIUpdate(`http://localhost:8080/api/auth/UpdatePassword?username=${user.username}`, { OldPassword: password1, NewPassword: password2 })
         console.log("🚀 ~ file: ChangePassword.js:68 ~ handleSubmit ~ kq", kq)
-        if (confirm1 && confirm) {
-            if (kq.status === 200) {
-                toast.success(`${kq.message}`, {
-                    pauseOnHover: false,
-                    delay: 0,
-                    autoClose: 1300,
-                });
-                setCheck(false);
-            }
-            else {
-                toast.error(`${kq.message}`, {
-                    pauseOnHover: false,
-                    delay: 0,
-                    autoClose: 1300,
-                });
-                setCheck(true);
-            }
-        }
-        else {
-            toast.error(`Vui lòng nhập đúng thông tin`, {
+        if (kq.status === 200) {
+            toast.success(`${kq.message}`, {
                 pauseOnHover: false,
                 delay: 0,
                 autoClose: 1300,
             });
+            setCheck(false);
+        }
+        else {
+            toast.error(`${kq.message}`, {
+                pauseOnHover: false,
+                delay: 0,
+                autoClose: 1300,
+            });
+            setCheck(true);
         }
     };
     useEffect(() => {
@@ -120,7 +111,7 @@ export default function ChangePassword({ open }) {
             >
                 Đổi mật khẩu
             </h3>
-            <Dialog open={check} onClose={handleClose}>
+            <Dialog open={true} onClose={handleClose}>
                 <DialogTitle>Thay đổi mật khẩu</DialogTitle>
                 <DialogContent>
                     <DialogContentText>Vui lòng điền đầy đủ thông tin</DialogContentText>
