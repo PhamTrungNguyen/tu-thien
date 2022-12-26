@@ -81,7 +81,7 @@ export default function LinearWithValueLabel(props) {
   // }, []);
 
   return (
-    <Box sx={{ width: '95%', marginLeft: "10px" }}>
+    <Box sx={{ width: '90%' }}>
       <LinearProgressWithLabel value={percent} />
     </Box>
   );

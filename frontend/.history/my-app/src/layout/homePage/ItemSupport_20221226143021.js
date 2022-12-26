@@ -7,8 +7,8 @@ import ButtonStatus from "../../components/button/ButtonStatus";
 import { COLORHOMEPAGE } from "../../menuColor";
 import Donate from "./Donate";
 import FormDialog from "./Donate";
-import { format } from "date-fns";
-import { differenceInDays } from "date-fns";
+import { format } from 'date-fns';
+import { differenceInDays } from 'date-fns';
 import MyProgressBar from "./MyProgressBar";
 import LinearWithValueLabel from "./MyProgressBar";
 const ItemSupport = ({ item, ...props }) => {
@@ -32,13 +32,12 @@ const ItemSupport = ({ item, ...props }) => {
     const result = date.setDate(date.getDate() + numberOfDaysToAdd);
     const formatDateEnd = new Date(result).toLocaleDateString("vi");
     const endDate = new Date();
-    const startDate = new Date(result);
+    const startDate = new Date(result)
     const difference = differenceInDays(startDate, endDate);
     var nf = new Intl.NumberFormat();
     const number = money.toString()?.replace(/\$|,|\./g, "");
     const numberTotal = item.totalMoney.toString()?.replace(/\$|,|\./g, "");
-    const percent = Math.floor((number / numberTotal) * 100);
-    console.log("🚀 ~ file: ItemSupport.js:40 ~ ItemSupport ~ percent", percent);
+    const percent = Math.floor((number / numberTotal) * 100)
     async function handleGetDonateIDByPostID(url) {
         const response = await fetch(url, {
             method: "GET",
@@ -132,17 +131,15 @@ const ItemSupport = ({ item, ...props }) => {
     };
     const handleSubmitAdd = async () => {
         let check = false;
-        const kq = await handleGetParticipantByUserID(
-            `http://localhost:8080/api/participant/getParticipantByUserId?userId=${userID}`
-        );
-        kq?.length > 0 &&
-            kq.forEach((item) => {
-                if (item.finish === true) {
-                    check = true;
-                }
-            });
+        const kq = await handleGetParticipantByUserID(`http://localhost:8080/api/participant/getParticipantByUserId?userId=${userID}`);
+        kq?.length > 0 && kq.forEach((item) => {
+            if (item.finish === true) {
+                check = true;
+            }
+
+        });
         if (kq?.length === 0) {
-            check = true;
+            check = true
         }
         Swal.fire({
             title: "Nhận hỗ trợ dự án",
@@ -189,17 +186,15 @@ const ItemSupport = ({ item, ...props }) => {
     };
     const handleSubmitParticipation = async () => {
         let check = false;
-        const kq = await handleGetParticipantByUserID(
-            `http://localhost:8080/api/participant/getParticipantByUserId?userId=${userID}`
-        );
-        kq?.length > 0 &&
-            kq.forEach((item) => {
-                if (item?.finish === true) {
-                    check = true;
-                }
-            });
+        const kq = await handleGetParticipantByUserID(`http://localhost:8080/api/participant/getParticipantByUserId?userId=${userID}`);
+        kq?.length > 0 && kq.forEach((item) => {
+            if (item?.finish === true) {
+                check = true;
+            }
+
+        });
         if (kq?.length === 0) {
-            check = true;
+            check = true
         }
         Swal.fire({
             title: "Tham gia hỗ trợ dự án",
@@ -241,7 +236,8 @@ const ItemSupport = ({ item, ...props }) => {
                             window.location.href = window.location.href;
                         });
                     }
-                } else {
+                }
+                else {
                     toast.error(`Dự án đã hết hạn không thể tham gia`, {
                         pauseOnHover: false,
                         delay: 0,
@@ -285,9 +281,7 @@ const ItemSupport = ({ item, ...props }) => {
         handleGetParticipantByID(
             `http://localhost:8080/api/participant/getParticipantById?userId=${userID}`
         );
-        handleCountParticipantByPostId(
-            `http://localhost:8080/api/participant/getCountParticipantByPostId?postId=${item?.id}`
-        );
+        handleCountParticipantByPostId(`http://localhost:8080/api/participant/getCountParticipantByPostId?postId=${item?.id}`)
         // handleGetParticipantByUserID(`http://localhost:8080/api/participant/getParticipantByUserId?userId=${userID}&postId=${item?.id}`)
     }, [item?.id, userID, userLead]);
 
@@ -323,7 +317,7 @@ const ItemSupport = ({ item, ...props }) => {
                 <p className="itemSupport-desc">{item.desc}</p>
             </div>
 
-            <div className="pb-[10px] mt-auto flex flex-col items-center justify-center">
+            <div className="pb-[10px] mt-auto flex flex-col items-center">
                 <div className="money">
                     <div className={`font-semibold text-left text-[15px] pb-[10px]`}>
                         Đã góp được:{" "}
@@ -338,9 +332,12 @@ const ItemSupport = ({ item, ...props }) => {
                         </span>
                     </div>
                 </div>
-                <LinearWithValueLabel completion={percent}></LinearWithValueLabel>
+                <div>
+
+                    <LinearWithValueLabel completion={percent}></LinearWithValueLabel>
+                </div>
                 <div
-                    className={`flex flex-col items-center justify-center font-medium text-left text-[14px] mt-[10px] `}
+                    className={`flex flex-col items-center justify-center font-medium text-left text-[14px] `}
                 >
                     <span className="">
                         {`Ngày bắt đầu: `}
@@ -352,19 +349,17 @@ const ItemSupport = ({ item, ...props }) => {
                         {`Ngày kết thúc: `}
                         <h3 className="inline text-[red] font-semibold">{formatDateEnd}</h3>
                     </span>
-                    {difference > 0 && (
+                    {difference > 0 &&
                         <span className="">
                             {`Dự kiến còn: `}
-                            <h3 className="inline text-[red] font-semibold">
-                                {difference + " ngày"}
-                            </h3>
+                            <h3 className="inline text-[red] font-semibold">{difference + " ngày"}</h3>
                         </span>
-                    )}
-                    {difference < 0 && (
+                    }
+                    {difference < 0 &&
                         <span className="">
                             <h3 className="inline text-[red] font-semibold">Đã quá hạn</h3>
                         </span>
-                    )}
+                    }
                     <span className="mt-[10px]">
                         {`Số người tham gia dự kiến: `}
                         <h3 className="inline text-[red] font-semibold">{`${countParticipantByPostID}/${item?.totalParticipant}`}</h3>
@@ -387,23 +382,27 @@ const ItemSupport = ({ item, ...props }) => {
                 )}
                 {item.status === 2 && (
                     <div className="flex  flex-row">
-                        {percent < 100 && <Donate item={item}></Donate>}
-                        {percent >= 100 && (
+                        {percent < 100 &&
+                            <Donate item={item}></Donate>
+                        }
+                        {percent >= 100 &&
                             <ButtonDonate
                                 className="text-[12px]"
                                 color="#FF00CC"
                                 onClick={() => {
-                                    navigate(`/${item.id}`);
-                                    window.location.reload();
+                                    navigate(`/${item.id}`)
+                                    window.location.reload()
                                     // setTimeout(
                                     //     () => (window.location.reload()),
                                     //     1000
                                     // );
-                                }}
+                                }
+                                }
+
                             >
                                 Đủ chỉ tiêu
                             </ButtonDonate>
-                        )}
+                        }
                         <ButtonDonate
                             className="text-[12px]"
                             color="#3085d6"
@@ -414,34 +413,28 @@ const ItemSupport = ({ item, ...props }) => {
                     </div>
                 )}
                 {item.status === 3 && (
-                    <ButtonDonate
-                        color="#2ba234"
-                        onClick={() => {
-                            navigate(`/${item.id}`);
-                            window.location.reload();
-                            // setTimeout(
-                            //     () => (window.location.reload()),
-                            //     1000
-                            // );
-                        }}
-                    >
-                        Chi tiết
-                    </ButtonDonate>
+                    <ButtonDonate color="#2ba234" onClick={() => {
+                        navigate(`/${item.id}`)
+                        window.location.reload()
+                        // setTimeout(
+                        //     () => (window.location.reload()),
+                        //     1000
+                        // );
+                    }
+                    }
+                    >Chi tiết</ButtonDonate>
                 )}
                 {item.status === 1 && difference < 0 && (
-                    <ButtonDonate
-                        color="#333333"
-                        onClick={() => {
-                            navigate(`/${item.id}`);
-                            window.location.reload();
-                            // setTimeout(
-                            //     () => (window.location.reload()),
-                            //     1000
-                            // );
-                        }}
-                    >
-                        Chưa được hỗ trợ
-                    </ButtonDonate>
+                    <ButtonDonate color="#333333" onClick={() => {
+                        navigate(`/${item.id}`)
+                        window.location.reload()
+                        // setTimeout(
+                        //     () => (window.location.reload()),
+                        //     1000
+                        // );
+                    }
+                    }
+                    >Chưa được hỗ trợ</ButtonDonate>
                 )}
             </div>
         </div>

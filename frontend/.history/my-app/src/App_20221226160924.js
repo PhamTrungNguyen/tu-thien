@@ -19,7 +19,7 @@ function App() {
     <Routes >
       {/* <Route path="/signpage" element={<SignPage></SignPage>}></Route> */}
       <Route path="/signpage" element={<SignPage></SignPage>}></Route>
-      <Route path="/quen-mat-khau" element={<ForgotPassword></ForgotPassword>}></Route>
+      <Route path="/  " element={<ForgotPassword></ForgotPassword>}></Route>
       <Route element={<DashboardLayout></DashboardLayout>}>
         <Route path="/" element={<HomePage></HomePage>}></Route>
         <Route path="/:Id" element={<DetailPage></DetailPage>}></Route>

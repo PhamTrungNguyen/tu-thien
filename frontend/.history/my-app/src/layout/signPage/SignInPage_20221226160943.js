@@ -8,11 +8,10 @@ import * as yup from "yup";
 import IconEyeOpen from "../../components/icon/IconEyeOpen";
 import IconEyeClose from "../../components/icon/IconEyeClose";
 import { useNavigate } from "react-router-dom";
-import ForgotPassword from "./ForgotPassword";
 const SignInPage = () => {
     const user = JSON.parse(localStorage.getItem('userLogin'))
+    const dispatch = useDispatch()
     const [icon, setIcon] = useState(false);
-    const [check, setCheck] = useState(false);
     const [userLogin, setUserLogin] = useState({})
     const navigate = useNavigate();
     const schema = yup
@@ -160,14 +159,10 @@ const SignInPage = () => {
                         Đăng nhập
                     </button>
                 </div>
-                <div className="cursor-pointer" onClick={() => setCheck(!check)}>
-
-                    <span className="pass-forgot hover:text-black duration-300">
-                        Quên mật khẩu?
-                    </span>
-                </div>
+                <a href="/quen-mat-khau" className="pass-forgot">
+                    Quên mật khẩu?
+                </a>
             </form>
-            <ForgotPassword open={check}></ForgotPassword>
         </div>
     );
 };

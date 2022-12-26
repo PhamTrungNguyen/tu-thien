@@ -154,7 +154,7 @@ const ItemPost = ({ props, index }) => {
                         src={props.image}
                         alt=""
                         className="w-[66px] h-[55px] rounded object-cover"
-
+                        href={`/${idPost}`}
                     />
 
                     <div className="flex-1">
@@ -162,10 +162,7 @@ const ItemPost = ({ props, index }) => {
                             className="title-post text-[12px] font-semibold max-w-[300px] whitespace-normal cursor-pointer"
                             title={props.title}
                         >
-                            <a href={`/${idPost}`}>
-
-                                {props.title}
-                            </a>
+                            {props.title}
                         </h3>
                         <time className="text-sm text-gray-500">
                             {formatDate}

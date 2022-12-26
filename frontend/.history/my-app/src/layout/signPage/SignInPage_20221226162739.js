@@ -162,7 +162,7 @@ const SignInPage = () => {
                 </div>
                 <div className="cursor-pointer" onClick={() => setCheck(!check)}>
 
-                    <span className="pass-forgot hover:text-black duration-300">
+                    <span className="pass-forgot hover:">
                         Quên mật khẩu?
                     </span>
                 </div>

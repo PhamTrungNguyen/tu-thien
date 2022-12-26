@@ -160,14 +160,14 @@ const SignInPage = () => {
                         Đăng nhập
                     </button>
                 </div>
-                <div className="cursor-pointer" onClick={() => setCheck(!check)}>
-
-                    <span className="pass-forgot hover:text-black duration-300">
+                <div onClick={() => setCheck(!check)}>
+                    <span>
                         Quên mật khẩu?
+
                     </span>
                 </div>
             </form>
-            <ForgotPassword open={check}></ForgotPassword>
+            <ForgotPassword></ForgotPassword>
         </div>
     );
 };

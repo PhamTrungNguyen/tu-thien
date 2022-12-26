@@ -340,7 +340,7 @@ const ItemSupport = ({ item, ...props }) => {
                 </div>
                 <LinearWithValueLabel completion={percent}></LinearWithValueLabel>
                 <div
-                    className={`flex flex-col items-center justify-center font-medium text-left text-[14px] mt-[10px] `}
+                    className={`flex flex-col items-center justify-center font-medium text-left text-[14px] mt-5 `}
                 >
                     <span className="">
                         {`Ngày bắt đầu: `}

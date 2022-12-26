@@ -293,7 +293,7 @@ const ItemSupport = ({ item, ...props }) => {
 
     return (
         <div className="itemSupport-item border-2 flex flex-col items-center duration-200 mb-[20px]">
-            <div className="relative p-0 h-[170px] w-[220px]">
+            <div className="relative p-0 h-[170px] w-[100%]">
                 {item.status === 1 && difference > 0 && (
                     <ButtonStatus color="#00b6f1">Cần hỗ trợ</ButtonStatus>
                 )}
