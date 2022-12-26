@@ -89,7 +89,6 @@ export default function ForgotPassword({ open }) {
                         delay: 0,
                         autoClose: 1500,
                     });
-                    setCheck(false);
                 }
                 else {
                     toast.error(`Thông tin chưa chính xác`, {
@@ -111,7 +110,7 @@ export default function ForgotPassword({ open }) {
                 <DialogTitle>Đặt lại mật khẩu</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Để đặt lại mật khẩu thành mặc định bạn vui lòng nhập đúng tài khoản, email và mã
+                        Để lấy lại mật khẩu thành mặt định bạn vui lòng nhập đúng tài khoản, email và mã
                         code của mình.Nếu thành công mật khẩu của bạn là : 12345678
                     </DialogContentText>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-8">
@@ -151,8 +150,8 @@ export default function ForgotPassword({ open }) {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Hủy</Button>
-                    <Button onClick={handleSubmit}>Đồng ý</Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleSubmit}>Subscribe</Button>
                 </DialogActions>
             </Dialog>
         </div>

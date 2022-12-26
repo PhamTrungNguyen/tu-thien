@@ -62,9 +62,9 @@ const UpdateMoneyByUser = async (req, res) => {
 
 }
 /* ---------- Update tài khoản ----------  */
-const ResetPassword = async (req, res) => {
-    let account = await authService.ResetPasswordService(req.query)
-    return res.send(account)
+const ResetPasswordService = async (req, res) => {
+    let account = await authService.UpdateMoneyByUserService(req.query, req.body)
+    return res.status(200).send(account)
 
 }
 /* ---------- Đăng nhập  ----------  */
@@ -98,6 +98,5 @@ module.exports = {
     getAccountByUser,
     getAccountByID,
     UpdateAccountByUser,
-    UpdateMoneyByUser,
-    ResetPassword
+    UpdateMoneyByUser
 }

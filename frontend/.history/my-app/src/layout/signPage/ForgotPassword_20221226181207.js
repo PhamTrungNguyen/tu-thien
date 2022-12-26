@@ -89,7 +89,6 @@ export default function ForgotPassword({ open }) {
                         delay: 0,
                         autoClose: 1500,
                     });
-                    setCheck(false);
                 }
                 else {
                     toast.error(`Thông tin chưa chính xác`, {

@@ -63,7 +63,7 @@ const UpdateMoneyByUser = async (req, res) => {
 }
 /* ---------- Update tài khoản ----------  */
 const ResetPassword = async (req, res) => {
-    let account = await authService.ResetPasswordService(req.query)
+    let account = await authService.ResetPasswordService()
     return res.send(account)
 
 }

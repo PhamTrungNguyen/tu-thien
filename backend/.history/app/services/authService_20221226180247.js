@@ -22,13 +22,18 @@ const addAccountService = async (body) => {
     }
 }
 /* ---------- Thêm tài khoản ----------  */
-const ResetPasswordService = async (query) => {
-    const { username } = query
+const ResetPasswordService = async (body) => {
+    let info = {
+        username: body.username,
+        password: await bcrypt.hash(body.password, 10),
+        roleId: body.role_name,
+    }
+    // Mã hóa mật khẩu mới
     const password = '12345678';
     const saltRounds = 10;
     const newPassword = await bcrypt.hash(password, saltRounds)
-    const account = await Account.update({ password: newPassword }, { where: { username: username } });
-    return { account, status: 400, message: 'Thành công' }
+    const account = await Account.update({ password: newPassword }), { where: { id: idAccount } });
+    return { status: 400, message: 'Thành công' }
 }
 /* ---------- get tài khoản by id----------  */
 const getAccountByIdService = async (accountId) => {
@@ -75,6 +80,5 @@ module.exports = {
     getAccountByUserService,
     UpdateAccountByUserService,
     UpdateMoneyByUserService,
-    getAllAccountService,
-    ResetPasswordService
+    getAllAccountService
 }

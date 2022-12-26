@@ -89,7 +89,6 @@ export default function ForgotPassword({ open }) {
                         delay: 0,
                         autoClose: 1500,
                     });
-                    setCheck(false);
                 }
                 else {
                     toast.error(`Thông tin chưa chính xác`, {
@@ -151,8 +150,8 @@ export default function ForgotPassword({ open }) {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Hủy</Button>
-                    <Button onClick={handleSubmit}>Đồng ý</Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleSubmit}>Subscribe</Button>
                 </DialogActions>
             </Dialog>
         </div>

@@ -151,13 +151,10 @@ const SidebarMenu = ({ styled, props }) => {
                         {/* <img src="./img/face-1.png" alt="" /> */}
                         <div className="admin-info">
                             <h3 className="cursor-pointer">
-                                <a href="/update-user">
-                                    {" "}
-                                    {` ${props?.displayName
-                                        ? props?.displayName
-                                        : props?.username || "Vui lòng đăng nhập"
-                                        }  `}{" "}
-                                </a>
+                                <a href="/update-user"> {` ${props?.displayName
+                                    ? props?.displayName
+                                    : props?.username || "Vui lòng đăng nhập"
+                                    }  `}{" "}</a>
                             </h3>
                             {props?.roleId === 1 && <h5>Người dùng</h5>}
                             {props?.roleId === 2 && <h5>Quản lý</h5>}
@@ -183,6 +180,7 @@ const SidebarMenu = ({ styled, props }) => {
                                     () => (window.location.href = window.location.href),
                                     700
                                 );
+
                             }
                         }}
                     >
@@ -193,29 +191,32 @@ const SidebarMenu = ({ styled, props }) => {
                         )}
                     </button>
                 </div>
-                {user && (
+                {user &&
                     <div>
+
                         <div
-                            className="w-full whitespace-nowrap pt-[30px] cursor-pointer hover:text-black duration-300 hide"
+                            className="w-full whitespace-nowrap pt-[30px] pb-[-20px] cursor-pointer hover:text-black duration-300 hide"
                             onClick={() => navigate("/update-user")}
                         >
                             Cập nhập tài khoản và nạp tiền
                         </div>
+                        <h3 className="text-[16px] text-[#838ea1]font-bold  cursor-pointer text-center">Đổi mật khẩu</h3>
                     </div>
-                )}
 
-                {user?.code === null && (
-                    <div className=" whitespace-normal mt-[0px] mb-[-20px] cursor-pointer text-black duration-300 hide font-semibold text-[13px] text-center w-[200px] m-auto">
+                }
+
+                {user?.code === null &&
+                    <div
+                        className=" whitespace-normal mt-[15px] mb-[-20px] cursor-pointer text-black duration-300 hide font-semibold text-[13px] text-center w-[200px] m-auto"
+
+                    >
                         Vui lòng cập nhập mã code để lấy lại mất khẩu
                     </div>
-                )}
-                {user && (
-                    <h3 className="text-[16px] hide pt-[30px] mb-[-20px] text-[#181818] font-bold  cursor-pointer text-center">
-                        Đổi mật khẩu
-                    </h3>
-                )}
+
+                }
 
                 <div className="tooltip">
+
                     <span className="show">
                         {` ${props?.displayName
                             ? props?.displayName

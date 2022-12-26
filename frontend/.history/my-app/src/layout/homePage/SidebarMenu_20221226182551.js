@@ -205,12 +205,12 @@ const SidebarMenu = ({ styled, props }) => {
                 )}
 
                 {user?.code === null && (
-                    <div className=" whitespace-normal mt-[0px] mb-[-20px] cursor-pointer text-black duration-300 hide font-semibold text-[13px] text-center w-[200px] m-auto">
+                    <div className=" whitespace-normal mt-[10px] mb-[-20px] cursor-pointer text-black duration-300 hide font-semibold text-[13px] text-center w-[200px] m-auto">
                         Vui lòng cập nhập mã code để lấy lại mất khẩu
                     </div>
                 )}
                 {user && (
-                    <h3 className="text-[16px] hide pt-[30px] mb-[-20px] text-[#181818] font-bold  cursor-pointer text-center">
+                    <h3 className="text-[16px] pt-[30px] mb-[-20px] text-[#181818] font-bold  cursor-pointer text-center">
                         Đổi mật khẩu
                     </h3>
                 )}

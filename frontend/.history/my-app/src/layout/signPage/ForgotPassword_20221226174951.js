@@ -23,24 +23,6 @@ export default function ForgotPassword({ open }) {
         const result = await response.json();
         return result;
     }
-    const handleCallAPIUpdate = async (url, data) => {
-        try {
-            const response = await fetch(url, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-            const result = await response.json();
-        } catch (error) {
-            toast.error("Thất bại", {
-                pauseOnHover: false,
-                delay: 0,
-                autoClose: 1300,
-            });
-        }
-    };
     React.useEffect(() => {
         setCheck(open);
     }, [open]);
@@ -55,49 +37,30 @@ export default function ForgotPassword({ open }) {
     };
     const handleSubmit = async () => {
         const { account } = await handleCallAPIGet(`http://localhost:8080/api/auth/getAccountByUser?username=${username}`)
-        if (email === "" || username === "" || code === "") {
-            toast.error(`Vui lòng điền đẩy đủ thông tin`, {
+        if (account.email === null || account.code === null) {
+            console.log("🚀 ~ file: ForgotPassword.js:41 ~ handleSubmit ~ account", account)
+            toast.error(`123`, {
                 pauseOnHover: false,
                 delay: 0,
-                autoClose: 1500,
+                autoClose: 1300,
             });
         }
         else {
 
 
-            if (!account) {
-                toast.error(`Tài khoản không tồn tại`, {
+            if (username === account.username && email === account.email && code === account.code) {
+                toast.success(`Tài khoản của bạn đã được đặt lại mật khẩu `, {
                     pauseOnHover: false,
                     delay: 0,
-                    autoClose: 1500,
+                    autoClose: 1300,
                 });
-            }
-            if (account.email === null || account.code === null) {
-                toast.error(`Tài khoản: ${account.username} chưa được cập nhập email hoặc mã code`, {
-                    pauseOnHover: false,
-                    delay: 0,
-                    autoClose: 1500,
-                });
-
             }
             else {
-
-                if (username === account.username && email === account.email && code === account.code) {
-                    handleCallAPIUpdate(`http://localhost:8080/api/auth/ResetPassword?username=${username}`)
-                    toast.success(`Tài khoản của bạn đã được đặt lại mật khẩu mặc định`, {
-                        pauseOnHover: false,
-                        delay: 0,
-                        autoClose: 1500,
-                    });
-                    setCheck(false);
-                }
-                else {
-                    toast.error(`Thông tin chưa chính xác`, {
-                        pauseOnHover: false,
-                        delay: 0,
-                        autoClose: 1500,
-                    });
-                }
+                toast.error(`Đặt lại mật khẩu thất bại`, {
+                    pauseOnHover: false,
+                    delay: 0,
+                    autoClose: 1300,
+                });
             }
         }
     };
@@ -111,8 +74,8 @@ export default function ForgotPassword({ open }) {
                 <DialogTitle>Đặt lại mật khẩu</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Để đặt lại mật khẩu thành mặc định bạn vui lòng nhập đúng tài khoản, email và mã
-                        code của mình.Nếu thành công mật khẩu của bạn là : 12345678
+                        Để lấy lại mật khẩu bạn vui lòng nhập đúng tài khoản, email và mã
+                        code của mình
                     </DialogContentText>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-8">
                         <Input
@@ -151,8 +114,8 @@ export default function ForgotPassword({ open }) {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Hủy</Button>
-                    <Button onClick={handleSubmit}>Đồng ý</Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleSubmit}>Subscribe</Button>
                 </DialogActions>
             </Dialog>
         </div>

@@ -210,7 +210,7 @@ const SidebarMenu = ({ styled, props }) => {
                     </div>
                 )}
                 {user && (
-                    <h3 className="text-[16px] hide pt-[30px] mb-[-20px] text-[#181818] font-bold  cursor-pointer text-center">
+                    <h3 className="text-[16px] pt-[30px] mb-[-20px] text-[#181818] font-bold  cursor-pointer text-center">
                         Đổi mật khẩu
                     </h3>
                 )}
