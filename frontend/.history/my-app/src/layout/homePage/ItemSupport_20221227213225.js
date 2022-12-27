@@ -393,8 +393,8 @@ const ItemSupport = ({ item, ...props }) => {
                         {percent >= 100 && (
                             <ButtonDonate
                                 className="text-[12px]"
-                                color="#f72582"
-                                color1="#f72582" color2="#ff6d73"
+                                color="#ff6d73"
+                                color1="#ff6d73" color2="#ffcb77"
                                 onClick={() => {
                                     navigate(`/${item.id}`);
                                     window.location.reload();
